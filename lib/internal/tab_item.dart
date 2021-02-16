@@ -11,12 +11,13 @@ const int ANIM_DURATION = 300;
 class TabItem extends StatelessWidget {
   TabItem(
       {@required this.uniqueKey,
-        @required this.selected,
-        @required this.iconData,
-        @required this.title,
-        @required this.callbackFunction,
-        @required this.textColor,
-        @required this.iconColor});
+      @required this.selected,
+      @required this.iconData,
+      @required this.title,
+      @required this.callbackFunction,
+      @required this.textColor,
+      @required this.iconColor,
+      this.textScaleFactor});
 
   final UniqueKey uniqueKey;
   final String title;
@@ -25,6 +26,7 @@ class TabItem extends StatelessWidget {
   final Function(UniqueKey uniqueKey) callbackFunction;
   final Color textColor;
   final Color iconColor;
+  final double textScaleFactor;
 
   final double iconYAlign = ICON_ON;
   final double textYAlign = TEXT_OFF;
@@ -40,18 +42,22 @@ class TabItem extends StatelessWidget {
             height: double.infinity,
             width: double.infinity,
             child: AnimatedAlign(
-                duration: Duration(milliseconds: ANIM_DURATION),
-                alignment: Alignment(0, (selected) ? TEXT_ON : TEXT_OFF),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    title,
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 1,
-                    style: TextStyle(
-                        fontWeight: FontWeight.w600, color: textColor),
+              duration: Duration(milliseconds: ANIM_DURATION),
+              alignment: Alignment(0, (selected) ? TEXT_ON : TEXT_OFF),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  title,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    color: textColor,
                   ),
-                )),
+                  textScaleFactor: textScaleFactor ?? 1,
+                ),
+              ),
+            ),
           ),
           Container(
             height: double.infinity,
